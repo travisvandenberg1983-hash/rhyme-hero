@@ -1,0 +1,36 @@
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# Env files (keep the examples)
+.env
+.env.*
+!.env.example
+
+# ---- web (Node / Vite) ----
+node_modules/
+web/dist/
+web/dev-dist/
+*.tsbuildinfo
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- engine (Python) ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
