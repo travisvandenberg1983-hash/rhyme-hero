@@ -5,7 +5,8 @@ description = "Rhyme Hero coaching engine - word banks, rhyme patterns and stres
 requires-python = ">=3.11,<3.12"
 dependencies = [
     "fastapi>=0.115",
-    "uvicorn[standard]>=0.34",
+    # Plain uvicorn (not [standard]): its optional C extensions have no Windows ARM64 wheels.
+    "uvicorn>=0.34",
     "pronouncing>=0.2",
 ]
 
