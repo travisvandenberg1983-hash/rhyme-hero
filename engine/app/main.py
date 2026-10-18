@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from app.guardrails import single_words
-from app.lexicon import rank_common
+from app.lexicon import rank_for_vocab
 
 app = FastAPI(title="Rhyme Hero Engine", version="0.1.0")
 
@@ -32,8 +32,8 @@ def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
-@app.get("/api/v1/word-bank", response_model=WordBank)
-def word_bank(word: str = Query(..., min_length=1, max_length=40)) -> WordBank:
+@app.get("/api/v1/wordbank", response_model=WordBank)
+def wordbank(word: str = Query(..., min_length=1, max_length=40)) -> WordBank:
     target = word.strip().lower()
     if " " in target:
         raise HTTPException(status_code=422, detail="Send a single word.")
@@ -44,7 +44,7 @@ def word_bank(word: str = Query(..., min_length=1, max_length=40)) -> WordBank:
 
     return WordBank(
         word=target,
-        perfect=single_words(rank_common(pronouncing.rhymes(target))),
+        perfect=single_words(rank_for_vocab(pronouncing.rhymes(target))),
         stress=stress,
         syllables=syllables,
     )

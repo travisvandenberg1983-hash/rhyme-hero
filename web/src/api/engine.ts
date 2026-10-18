@@ -23,5 +23,5 @@ export function health(): Promise<{ status: string }> {
 }
 
 export function wordBank(word: string): Promise<WordBank> {
-  return get(`/api/v1/word-bank?word=${encodeURIComponent(word)}`);
+  return get(`/api/v1/wordbank?word=${encodeURIComponent(word)}`);
 }

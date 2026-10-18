@@ -3,7 +3,9 @@
 A comic-book-styled rhyming **skill coach**. Two halves:
 
 - `web/` - React + Vite + TypeScript + Tailwind v4, installable PWA.
-- `engine/` - Python 3.11 FastAPI service that does all the language work.
+- `engine/` - Python 3.11+ FastAPI service that does all the language work.
+
+Build plan: [Rhyme Hero: Build Requirements & Claude Code Prompts](https://claude.ai/artifact/5goX6gjuDoEkx9J8LMf4Rj). Work through its steps in order, one per session; Step 1 (this scaffold) is done.
 
 ## Permanent rules
 
@@ -16,6 +18,7 @@ The app is a rhyming SKILL coach. It must **never generate finished lines or ver
 - Allowed: single words, word banks, rhyme patterns (e.g. AABB, ABAB), stress markers, syllable counts, pauses/beat markers, and questions that prompt the user to think.
 - Not allowed: complete lines, couplets, verses, bars, "example lines", autocomplete of a user's line, or rewriting the user's line for them - from the engine, from the UI, from seed data, placeholder copy or tests.
 - Engine endpoints that return suggestions must pass lists through `engine/app/guardrails.py` (`single_words`) or an equivalent guard, and tests should assert the single-word contract.
+- Never include copyrighted lyrics in drills, examples, seed data or tests. Write original ones.
 
 ### 2. Comic book superhero visual style
 
@@ -28,7 +31,12 @@ The app is a rhyming SKILL coach. It must **never generate finished lines or ver
 
 - The UI only talks to the engine through its HTTP API. All calls go through `web/src/api/engine.ts`; the base URL comes from `VITE_ENGINE_URL`.
 - No shared code, imports or files between `web/` and `engine/`. No rhyme/phonetics logic in the UI.
-- API routes are versioned under `/api/v1/`. Changing a response shape means updating both the Pydantic model and the TypeScript type.
+- API routes are versioned under `/api/v1/`, using the build plan's names (`/api/v1/analyse`, `/api/v1/wordbank`, `/api/v1/coach`). Changing a response shape means updating both the Pydantic model and the TypeScript type.
+
+## Secrets and personal data
+
+- Third-party API keys (Whisper/Deepgram, Anthropic, Supabase service role) live only in the engine's environment, never in `web/` or `VITE_*` variables.
+- User writing and voice recordings are personal data. Do not keep audio after transcription.
 
 ## Commands
 
@@ -41,3 +49,5 @@ The app is a rhyming SKILL coach. It must **never generate finished lines or ver
 | Build UI | `web/` | `npm run build` |
 
 See `README.md` for first-time setup.
+
+This machine is Windows on ARM64: before adding a Python or npm dependency, check that it ships prebuilt win_arm64 wheels/binaries (packages that need a C compiler fail to install; that is why the engine uses plain `uvicorn`, not `uvicorn[standard]`).

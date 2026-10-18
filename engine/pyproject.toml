@@ -2,7 +2,7 @@
 name = "rhyme-hero-engine"
 version = "0.1.0"
 description = "Rhyme Hero coaching engine - word banks, rhyme patterns and stress, never finished lines."
-requires-python = ">=3.11,<3.12"
+requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115",
     # Plain uvicorn (not [standard]): its optional C extensions have no Windows ARM64 wheels.
