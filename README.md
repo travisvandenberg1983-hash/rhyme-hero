@@ -12,7 +12,7 @@ The UI talks to the engine only over HTTP, so run both.
 
 ## Prerequisites
 
-- Python **3.11**
+- Python **3.11+**
 - Node.js **20.19+** or **22.12+** (required by Vite 7) and npm
 
 ## Engine
@@ -52,6 +52,30 @@ npm run preview
 ```
 
 Then open http://localhost:4173 and use the browser's install button.
+
+A link like `/?word=fire` opens the app straight onto that word's bank. The privacy policy is at `/privacy.html` (served as `/privacy` on Vercel).
+
+## Deploy
+
+| Half | Host | Config | Environment variable |
+| --- | --- | --- | --- |
+| Engine | Render | [`render.yaml`](render.yaml) (New > Blueprint) | `RHYME_HERO_CORS_ORIGINS` = the web app's address, e.g. `https://rhyme-hero.vercel.app` |
+| Web | Vercel | [`web/vercel.json`](web/vercel.json); set the project's Root Directory to `web` | `VITE_ENGINE_URL` = the engine's address, e.g. `https://rhyme-hero-engine.onrender.com` |
+
+`VITE_ENGINE_URL` is baked in at build time, so redeploy the web app after changing it.
+
+## Publishing to Google Play
+
+The Play Store app is a Trusted Web Activity: a thin Android wrapper that opens the deployed web app full-screen. App updates ship by redeploying to Vercel; the wrapper only needs rebuilding if the name, icon or package changes.
+
+1. Deploy both halves (above) and open the web app on a phone to check it works.
+2. Replace `[CONTACT EMAIL - replace before publishing]` in [`web/privacy.html`](web/privacy.html).
+3. At [pwabuilder.com](https://www.pwabuilder.com), enter the web app's address, choose **Android**, and download the package. **Back up the signing key file and its passwords** - you need them for every future update.
+4. Copy the package ID and SHA-256 fingerprint from PWABuilder's `assetlinks.json` into [`web/public/.well-known/assetlinks.json`](web/public/.well-known/assetlinks.json), then redeploy. Check `https://<your-app>/.well-known/assetlinks.json` loads.
+5. In Play Console, create the app and upload the `.aab` under **Testing > Internal testing**. Install it on your phone.
+6. Add Play's own signing fingerprint (Play Console > **Setup > App signing** > SHA-256) as the second fingerprint in `assetlinks.json` and redeploy. Without it the app shows a browser address bar.
+7. Complete the store listing (512x512 icon, 1024x500 feature graphic, phone screenshots), content rating, target audience, data safety and privacy policy URL.
+8. New personal developer accounts must run a **closed test with at least 12 testers for 14 days** before applying for production (check the current rule in Play Console). Then apply for production access and submit for review.
 
 ## Project rules
 

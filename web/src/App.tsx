@@ -5,7 +5,8 @@ type EngineState = "checking" | "online" | "offline";
 
 export default function App() {
   const [engine, setEngine] = useState<EngineState>("checking");
-  const [word, setWord] = useState("");
+  // A shared link like /?word=fire opens straight onto that word's bank.
+  const [word, setWord] = useState(() => new URLSearchParams(location.search).get("word") ?? "");
   const [bank, setBank] = useState<WordBank | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -14,12 +15,17 @@ export default function App() {
     health()
       .then(() => setEngine("online"))
       .catch(() => setEngine("offline"));
+    if (word.trim()) void lookUp(word.trim());
+    // Runs once on load, for the word from the URL.
   }, []);
 
-  async function onSubmit(e: FormEvent) {
+  function onSubmit(e: FormEvent) {
     e.preventDefault();
     const w = word.trim();
-    if (!w) return;
+    if (w) void lookUp(w);
+  }
+
+  async function lookUp(w: string) {
     setLoading(true);
     setError(null);
     try {
@@ -112,6 +118,12 @@ export default function App() {
             </div>
           </section>
         )}
+
+        <footer className="text-center text-sm font-bold">
+          <a href="/privacy.html" className="underline">
+            Privacy policy
+          </a>
+        </footer>
       </main>
     </div>
   );
