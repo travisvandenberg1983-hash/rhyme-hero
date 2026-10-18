@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from app.guardrails import single_words
+from app.lexicon import rank_common
 
 app = FastAPI(title="Rhyme Hero Engine", version="0.1.0")
 
@@ -43,7 +44,7 @@ def word_bank(word: str = Query(..., min_length=1, max_length=40)) -> WordBank:
 
     return WordBank(
         word=target,
-        perfect=single_words(pronouncing.rhymes(target)),
+        perfect=single_words(rank_common(pronouncing.rhymes(target))),
         stress=stress,
         syllables=syllables,
     )

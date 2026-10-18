@@ -8,6 +8,8 @@ dependencies = [
     # Plain uvicorn (not [standard]): its optional C extensions have no Windows ARM64 wheels.
     "uvicorn>=0.34",
     "pronouncing>=0.2",
+    "wordfreq>=3.1",
+    "english-words>=2.0",
 ]
 
 [project.optional-dependencies]
