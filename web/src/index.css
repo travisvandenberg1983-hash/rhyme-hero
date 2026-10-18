@@ -28,9 +28,8 @@ body {
   background-size: 10px 10px;
 }
 
-/* A comic panel: thick ink outline + hard drop shadow. */
+/* A comic panel: thick ink outline + hard drop shadow. Pair with a bg-* class (usually bg-paper). */
 @utility panel {
-  background: var(--color-paper);
   border: 4px solid var(--color-ink);
   box-shadow: var(--shadow-comic);
 }

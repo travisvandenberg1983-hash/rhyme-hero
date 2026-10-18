@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+﻿import { useEffect, useState, type FormEvent } from "react";
 import { health, wordBank, type WordBank } from "./api/engine";
 
 type EngineState = "checking" | "online" | "offline";
@@ -42,7 +42,7 @@ export default function App() {
           <p className="mt-1 font-bold text-white">You write the lines. We train the skills.</p>
         </header>
 
-        <section className="panel p-5">
+        <section className="panel bg-paper p-5">
           <form onSubmit={onSubmit} className="flex flex-col gap-3 sm:flex-row">
             <label className="sr-only" htmlFor="word">
               Target word
@@ -82,7 +82,7 @@ export default function App() {
         )}
 
         {bank && (
-          <section className="panel grid gap-6 p-5">
+          <section className="panel bg-paper grid gap-6 p-5">
             <div className="flex items-center gap-4">
               <span className="burst text-3xl">POW!</span>
               <div>
