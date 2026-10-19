@@ -69,7 +69,7 @@ A link like `/?word=fire` opens the app straight onto that word's bank. The priv
 The Play Store app is a Trusted Web Activity: a thin Android wrapper that opens the deployed web app full-screen. App updates ship by redeploying to Vercel; the wrapper only needs rebuilding if the name, icon or package changes.
 
 1. Deploy both halves (above) and open the web app on a phone to check it works.
-2. Replace `[CONTACT EMAIL - replace before publishing]` in [`web/privacy.html`](web/privacy.html).
+2. Check the contact email in [`web/privacy.html`](web/privacy.html) is current.
 3. At [pwabuilder.com](https://www.pwabuilder.com), enter the web app's address, choose **Android**, and download the package. **Back up the signing key file and its passwords** - you need them for every future update.
 4. Copy the package ID and SHA-256 fingerprint from PWABuilder's `assetlinks.json` into [`web/public/.well-known/assetlinks.json`](web/public/.well-known/assetlinks.json), then redeploy. Check `https://<your-app>/.well-known/assetlinks.json` loads.
 5. In Play Console, create the app and upload the `.aab` under **Testing > Internal testing**. Install it on your phone.
