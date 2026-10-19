@@ -10,6 +10,8 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+# Public engine address for production builds - no secrets in here.
+!web/.env.production
 
 # ---- web (Node / Vite) ----
 node_modules/
