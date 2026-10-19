@@ -3,10 +3,9 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "REPLACE_WITH_PACKAGE_ID",
+      "package_name": "app.vercel.rhyme_hero.twa",
       "sha256_cert_fingerprints": [
-        "REPLACE_WITH_UPLOAD_KEY_SHA256",
-        "REPLACE_WITH_PLAY_APP_SIGNING_KEY_SHA256"
+        "39:0D:84:41:76:F3:66:87:FA:20:C1:B0:B0:E5:4C:18:B0:59:3D:4B:33:03:1F:84:67:05:EA:85:5D:74:B6:30"
       ]
     }
   }
